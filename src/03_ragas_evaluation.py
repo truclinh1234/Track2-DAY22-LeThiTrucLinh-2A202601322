@@ -218,8 +218,8 @@ def main():
         winner  = "← V1" if s1 > s2 else "← V2"
         print(f"  {metric:30s}  {s1:>8.4f}  {s2:>8.4f}  {winner}")
 
-    # Kiểm tra mục tiêu
-    best_faith = max(v1_scores["faithfulness"], v2_scores["faithfulness"])
+    # Kiểm tra mục tiêu — dùng nanmax vì max() thường trả về NaN nếu 1 trong 2 giá trị là NaN
+    best_faith = np.nanmax([v1_scores["faithfulness"], v2_scores["faithfulness"]])
     if best_faith >= 0.8:
         print(f"\n✅ Đạt mục tiêu: faithfulness = {best_faith:.4f} ≥ 0.8")
     else:
